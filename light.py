@@ -20,11 +20,6 @@ def ReadVolts(data,deci):
     volts = round(volts,deci)
     return volts
 
-# Calculate temperature from LM35 data
-def ConvertTemp(data,deci):
-    temp = data * 100
-    temp = round(temp,deci)
-    return temp
 
 # Define sensor channels
 light_ch = 0
@@ -49,8 +44,7 @@ while True:
   temp       = ConvertTemp(temp_volts,2)
 
   # Print out results
-  print "Temp  : ",temp_data, " (",temp_volts ,"V) -->",temp,"~C    Light : ",light_data," (",light_volts,"V)"
+  print "Light : ",light_data," (",light_volts,"V)"
 
   # Delay seconds
   time.sleep(delay)
-
