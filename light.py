@@ -37,12 +37,7 @@ while True:
   # Read the temperature sensor data
   light_data = ReadADC(light_ch)
   light_volts = ReadVolts(light_data,2)
-
-  # Read the temperature sensor data
-  temp_data = ReadADC(temp_ch)
-  temp_volts = ReadVolts(temp_data,4)
-  temp       = ConvertTemp(temp_volts,2)
-
+  
   # Print out results
   print "Light : ",light_data," (",light_volts,"V)"
 
