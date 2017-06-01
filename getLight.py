@@ -3,6 +3,12 @@ import time
 import os
 
 class getLight:
+
+    # Define LUX_CALC_SCALAR 
+    LUX_CALC_SCALAR = 12518931
+    LUX_CALC_EXPONENT = -1.405
+    REF_RESISTANCE = 5030
+
     def __init__(self):
         # open(bus, device) : open(X,Y) will open /dev/spidev-X.Y
         self.spi = spidev.SpiDev()
@@ -13,10 +19,7 @@ class getLight:
         # Define delay between readings
         self.delay = 3
 
-        # Define LUX_CALC_SCALAR 
-        LUX_CALC_SCALAR = 12518931
-        LUX_CALC_EXPONENT = -1.405
-        REF_RESISTANCE = 5030
+        
 
     # Read SPI data from MCP3008, Channel must be an integer 0-7
     def ReadADC(self, ch):
@@ -33,11 +36,11 @@ class getLight:
         return volts
 
     def getLux(self):
-        ldrRawData = self.ReadADC(self, self.light_ch)
-        resistorVoltage = self.ReadVolts(ldrRawData)
+        ldrRawData = self.ReadADC(self.light_ch)
+        resistorVoltage = self.ReadVolts(ldrRawData, 2)
         ldrVoltage = 3.3 - resistorVoltage
-        ldrResistance = ldrVoltage / resistorVoltage * REF_RESISTANCE
-        ldrLux = LUX_CALC_SCALAR * pow(ldrResistance, LUX_CALC_EXPONENT)
+        ldrResistance = ldrVoltage / resistorVoltage * self.REF_RESISTANCE
+        ldrLux = self.LUX_CALC_SCALAR * pow(ldrResistance, self.LUX_CALC_EXPONENT)
         return ldrLux
 
     def main(self):
