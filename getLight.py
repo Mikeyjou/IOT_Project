@@ -9,7 +9,6 @@ class getLight:
         self.spi.open(0,0)
          # Define sensor channels
         self.light_ch = 0
-        self.temp_ch  = 1
 
         # Define delay between readings
         self.delay = 3
@@ -18,7 +17,7 @@ class getLight:
     def ReadADC(self, ch):
         if ((ch > 7) or (ch < 0)):
             return -1
-        adc = spi.xfer2([1,(8+ch)<<4,0])
+        adc = self.spi.xfer2([1,(8+ch)<<4,0])
         data = ((adc[1]&3)<<8) + adc[2]
         return data
 

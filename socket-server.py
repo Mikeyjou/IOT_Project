@@ -28,11 +28,11 @@ while 1:
             print("Receive from client: " + data)
 
         if data == "commands":
-            conn.sendall("'0' : Get the Lux of environment.\n'1' : Start/Stop the motor\n")
-        if data == "0":
+            conn.sendall("\n'0' : Get the Lux of environment.\n'1' : Start/Stop the motor\n")
+        elif data == "0":
             lux = light.ReadADC(0)
-            print("Lux of enviroment: " + lux)
-            conn.sendall("Lux of enviroment: " + lux)
+            print("Lux of enviroment: " + str(lux))
+            conn.sendall("Lux of enviroment: " + str(lux))
         elif data == "1":
             time = 10
             motor.start(time)
