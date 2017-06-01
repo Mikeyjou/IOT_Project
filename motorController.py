@@ -9,11 +9,13 @@ class motorController:
         GPIO.setup(self.MotorPin,GPIO.OUT)
 
         self.pwm_motor = GPIO.PWM(self.MotorPin, 50)
-    
-    def main(self):
+        self.isRunning = False
+
+
+    def start(self, time):
         self.pwm_motor.start(7.5)
-     
-        while True:
+        t0 = time.time()
+        while time.time() - t0 < time:
             for a in range(100):
                 self.pwm_motor.ChangeDutyCycle(4)
                 time.sleep(0.01)
@@ -36,4 +38,4 @@ class motorController:
 
 if __name__ == "__main__":
     motor = motorController()
-    motor.main()
+    motor.start()

@@ -31,18 +31,14 @@ class getLight:
     def main(self):
         while True:
             # Read the light sensor data
-            light_data = ReadADC(light_ch)
-            light_volts = ReadVolts(light_data,2)
-
-            # Read the temperature sensor data
-            light_data = ReadADC(light_ch)
+            light_data = ReadADC(self.light_ch)
             light_volts = ReadVolts(light_data,2)
 
             # Print out results
             print ("Light : ",light_data," (",light_volts,"V)")
 
             # Delay seconds
-            time.sleep(delay)
+            time.sleep(self.delay)
 
 if __name__ == "__main__":
     light = getLight()

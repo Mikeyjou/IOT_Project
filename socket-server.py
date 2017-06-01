@@ -1,11 +1,10 @@
 import socket
-import commands
 import RPi.GPIO as GPIO
 from getLight import getLight
 from motorController import motorController
 
 
-HOST='192.168.0.106'
+HOST='127.0.0.1'
 PORT=50007
 GPIO.setmode(GPIO.BOARD)
 LED_PIN = 12
@@ -14,15 +13,31 @@ GPIO.setup(LED_PIN, GPIO.OUT)
 s= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.bind((HOST,PORT))
 s.listen(1)
+
+light = getLight()
+motor = motorController()
+
+
+print("Start running socket server...\n\n")
 while 1:
     conn,addr=s.accept()
     print ('Connected by',addr)
     while 1:
         data=conn.recv(1024)
-        if data == "On":
-            GPIO.output(LED_PIN, GPIO.HIGH)
-            conn.sendall("On")
-        elif data == "Off":
-            GPIO.output(LED_PIN, GPIO.LOW)
-            conn.sendall("Off")
+        if data != "":
+            print("Receive from client: " + data)
+
+        if data == "commands":
+            conn.sendall("'0' : Get the Lux of environment.\n'1' : Start/Stop the motor\n")
+        if data == "0":
+            lux = light.ReadADC(0)
+            print("Lux of enviroment: " + lux)
+            conn.sendall("Lux of enviroment: " + lux)
+        elif data == "1":
+            time = 10
+            motor.start(time)
+            conn.sendall("Start running motor for " + str(time) + 'seconds.')
+        else:
+            conn.sendall("Not a valid input!")
+
 conn.close()
