@@ -7,11 +7,16 @@ class getLight:
         # open(bus, device) : open(X,Y) will open /dev/spidev-X.Y
         self.spi = spidev.SpiDev()
         self.spi.open(0,0)
-         # Define sensor channels
+        # Define sensor channels
         self.light_ch = 0
 
         # Define delay between readings
         self.delay = 3
+
+        # Define LUX_CALC_SCALAR 
+        LUX_CALC_SCALAR = 12518931
+        LUX_CALC_EXPONENT = -1.405
+        REF_RESISTANCE = 5030
 
     # Read SPI data from MCP3008, Channel must be an integer 0-7
     def ReadADC(self, ch):
@@ -22,16 +27,24 @@ class getLight:
         return data
 
     # Convert data to voltage level
-    def ReadVolts(data,deci):
+    def ReadVolts(self, data, deci):
         volts = (data * 3.3) / float(1023)
         volts = round(volts,deci)
         return volts
 
+    def getLux(self):
+        ldrRawData = self.ReadADC(self, self.light_ch)
+        resistorVoltage = self.ReadVolts(ldrRawData)
+        ldrVoltage = 3.3 - resistorVoltage
+        ldrResistance = ldrVoltage / resistorVoltage * REF_RESISTANCE
+        ldrLux = LUX_CALC_SCALAR * pow(ldrResistance, LUX_CALC_EXPONENT)
+        return ldrLux
+
     def main(self):
         while True:
             # Read the light sensor data
-            light_data = ReadADC(self.light_ch)
-            light_volts = ReadVolts(light_data,2)
+            light_data = self.ReadADC(self.light_ch)
+            light_volts = self.ReadVolts(light_data,2)
 
             # Print out results
             print ("Light : ",light_data," (",light_volts,"V)")

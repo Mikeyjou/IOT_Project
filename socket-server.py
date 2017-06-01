@@ -30,7 +30,7 @@ while 1:
         if data == "commands":
             conn.sendall("\n'0' : Get the Lux of environment.\n'1' : Start/Stop the motor\n")
         elif data == "0":
-            lux = light.ReadADC(0)
+            lux = light.getLux()
             print("Lux of enviroment: " + str(lux))
             conn.sendall("Lux of enviroment: " + str(lux))
         elif data == "1":
