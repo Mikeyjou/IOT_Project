@@ -1,5 +1,8 @@
 #!/usr/bin/python
 import socket
+
+
+
 HOST='140.138.225.10'
 PORT=50007
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)

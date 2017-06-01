@@ -1,6 +1,10 @@
 import socket
 import commands
 import RPi.GPIO as GPIO
+from getLight import getLight
+from motorController import motorController
+
+
 HOST='192.168.0.106'
 PORT=50007
 GPIO.setmode(GPIO.BOARD)
