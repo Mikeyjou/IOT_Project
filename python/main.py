@@ -1,4 +1,3 @@
-#coding=utf-8  
 import pymysql.cursors
 import threading
 import sys
@@ -69,7 +68,7 @@ def getNow():
 def isNeedToStart(threat, now, offset):
     if threat['halfDay'] == now['halfDay']:
         # offset分鐘前就預先開始啟動
-        if threat['hour'] * 60 + threat['min'] < now['hour'] * 60 + now['min'] - offset:
+        if int(threat['hour']) * 60 + int(threat['min']) < int(now['hour']) * 60 + int(now['min']) - offset:
             return True
         else:
             return False
@@ -82,6 +81,10 @@ connection = initDB()
 score = getLatestScore(connection)
 threatTimeStruct = countThreatTime(75)
 
+threatTimeStruct['hour'] = str(9)
+threatTimeStruct['min'] = str(5)
+threatTimeStruct['halfDay'] = 'PM'
+
 if threatTimeStruct != None:
     print('強光治療時間為: 早上' + threatTimeStruct['hour'] + '點' + threatTimeStruct['min'] + '分')
 
@@ -92,8 +95,11 @@ if nowStruct != None:
     elif nowStruct['halfDay'] == 'PM':
         print('現在時間為: 下午' + nowStruct['hour'] + '點' + nowStruct['min'] + '分')
 
+
+
+
 # 5分鐘前開啟百葉窗
-while isNeedToStart(threatTimeStruct, nowStruct, 5):
+while isNeedToStart(threatTimeStruct, getNow(), 1):
     gTTS.play("治療開始前5分鐘，請開始準備！")
     print("治療開始前5分鐘，請開始準備！")
     motor.start(30)
@@ -113,3 +119,4 @@ while isNeedToStart(threatTimeStruct, nowStruct, 5):
 
 # t = threading.Timer(10.0, repeatedlyExecute, args=(connection,))
 # t.start() 
+
