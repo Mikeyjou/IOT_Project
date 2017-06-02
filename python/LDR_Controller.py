@@ -2,7 +2,7 @@ import spidev
 import time
 import os
 
-class getLight:
+class LDR_Controller:
 
     # Define LUX_CALC_SCALAR 
     LUX_CALC_SCALAR = 12518931

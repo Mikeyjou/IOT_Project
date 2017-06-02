@@ -1,7 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 
-class motorController:
+class motor_Controller:
 
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
