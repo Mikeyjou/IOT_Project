@@ -75,7 +75,7 @@ def isNeedToStart(threat, now, offset):
     else:
         return False
 
-gTTS = textToSpeech()
+speechConverter = textToSpeech()
 motor, ldr = initRaspberry()
 connection = initDB()
 score = getLatestScore(connection)
@@ -100,22 +100,22 @@ if nowStruct != None:
 
 # 5分鐘前開啟百葉窗
 while isNeedToStart(threatTimeStruct, getNow(), 1):
-    gTTS.play("治療開始前5分鐘，請開始準備！")
+    speechConverter.play("治療開始前5分鐘，請開始準備！")
     print("治療開始前5分鐘，請開始準備！")
     motor.start(30)
     while isNeedToStart(threatTimeStruct, getNow(), 0):
         lux = str(ldr.getLux())
         print("時間到了...")
         print("目前光照強度為:" + lux)
-        gTTS.play("時間到，目前光照強度為" + lux)
+        speechConverter.play("時間到，目前光照強度為" + lux)
         
         if lux < 10000:
             print("戶外光照強度不足，請於室內接受治療！")
             print("開始啟動光照儀器...")
-            gTTS.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
+            speechConverter.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
         else:
             print("戶外光照強度充足，請外出曬太陽！")
-            gTTS.play("戶外光照強度充足，請外出曬太陽")
+            speechConverter.play("戶外光照強度充足，請外出曬太陽")
 
 # t = threading.Timer(10.0, repeatedlyExecute, args=(connection,))
 # t.start() 

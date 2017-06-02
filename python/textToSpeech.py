@@ -1,8 +1,7 @@
 from gtts import gTTS
 from time import sleep
 import os
-import pyglet
-
+import pygame
 class textToSpeech():
     def __init__(self):
         self.filename = 'tmp/temp.mp3'
@@ -11,11 +10,11 @@ class textToSpeech():
         tts = gTTS(text=string, lang='zh-tw')
         tts.save(self.filename)
 
-        music = pyglet.media.load(self.filename, streaming=False)
-        music.play()
-
-        sleep(music.duration) #prevent from killing
-        os.remove(self.filename) #remove temperory file
+        pygame.mixer.init()
+        pygame.mixer.music.load(self.filename)
+        pygame.mixer.music.play()
+        while pygame.mixer.music.get_busy(): 
+            pygame.time.Clock().tick(10)
 
 if __name__ == "__main__":
     textToSpeech().play('1000')
