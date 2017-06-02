@@ -9,169 +9,172 @@
 <title>Light Theme</title>
 <script language=javascript>
 function aa(){
-var r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20;
-var form = document.getElementById("myform");
-for (var i=0; i< form.question_1.length; i++)
-{
-   if (form.question_1[i].checked)
-   {
-      r1 = form.question_1[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_2.length; i++)
-{
-   if (form.question_2[i].checked)
-   {
-      r2 = form.question_2[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_3.length; i++)
-{
-   if (form.question_3[i].checked)
-   {
-      r3 = form.question_3[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_4.length; i++)
-{
-   if (form.question_4[i].checked)
-   {
-      r4 = form.question_4[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_5.length; i++)
-{
-   if (form.question_5[i].checked)
-   {
-      r5 = form.question_5[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_6.length; i++)
-{
-   if (form.question_6[i].checked)
-   {
-      r6 = form.question_6[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_7.length; i++)
-{
-   if (form.question_7[i].checked)
-   {
-      r7 = form.question_7[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_8.length; i++)
-{
-   if (form.question_8[i].checked)
-   {
-      r8 = form.question_8[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_9.length; i++)
-{
-   if (form.question_9[i].checked)
-   {
-      r9 = form.question_9[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_10.length; i++)
-{
-   if (form.question_10[i].checked)
-   {
-      r10 = form.question_10[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_11.length; i++)
-{
-   if (form.question_11[i].checked)
-   {
-      r11 = form.question_11[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_12.length; i++)
-{
-   if (form.question_12[i].checked)
-   {
-      r12 = form.question_12[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_13.length; i++)
-{
-   if (form.question_13[i].checked)
-   {
-      r13 = form.question_13[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_14.length; i++)
-{
-   if (form.question_14[i].checked)
-   {
-      r14 = form.question_14[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_15.length; i++)
-{
-   if (form.question_15[i].checked)
-   {
-      r15 = form.question_15[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_16.length; i++)
-{
-   if (form.question_16[i].checked)
-   {
-      r16 = form.question_16[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_17.length; i++)
-{
-   if (form.question_17[i].checked)
-   {
-      r17 = form.question_17[i].value;
-      break;
-   }
-}
-for (var i=0; i< form.question_18.length; i++)
-{
-   if (form.question_18[i].checked)
-   {
-      r18 = form.question_18[i].value;
-      break;
-   }
-}
-for (var i=0; i<form.question_19.length; i++)
-{
-   if (form.question_19[i].checked)
-   {
-      r19 = form.question_19[i].value;
-      break;
-   }
-}
-r20=parseInt(r1)+ parseInt(r2)+ parseInt(r3)+ parseInt(r4)+parseInt(r5)+ parseInt(r6)+ parseInt(r7)+ parseInt(r8)+parseInt(r9)+ parseInt(r10)+ parseInt(r11)+ parseInt(r12)+parseInt(r13)+ parseInt(r14)+ parseInt(r15)+ parseInt(r16)+parseInt(r17)+ parseInt(r18)+ parseInt(r19);
-myform.T20.value= r20;
-alert(myform.T20.value);
-}
+		var r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20;
+		var form = document.getElementById("myform");
+		for (var i=0; i< form.question_1.length; i++)
+		{
+		   if (form.question_1[i].checked)
+		   {
+			  r1 = form.question_1[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_2.length; i++)
+		{
+		   if (form.question_2[i].checked)
+		   {
+			  r2 = form.question_2[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_3.length; i++)
+		{
+		   if (form.question_3[i].checked)
+		   {
+			  r3 = form.question_3[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_4.length; i++)
+		{
+		   if (form.question_4[i].checked)
+		   {
+			  r4 = form.question_4[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_5.length; i++)
+		{
+		   if (form.question_5[i].checked)
+		   {
+			  r5 = form.question_5[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_6.length; i++)
+		{
+		   if (form.question_6[i].checked)
+		   {
+			  r6 = form.question_6[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_7.length; i++)
+		{
+		   if (form.question_7[i].checked)
+		   {
+			  r7 = form.question_7[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_8.length; i++)
+		{
+		   if (form.question_8[i].checked)
+		   {
+			  r8 = form.question_8[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_9.length; i++)
+		{
+		   if (form.question_9[i].checked)
+		   {
+			  r9 = form.question_9[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_10.length; i++)
+		{
+		   if (form.question_10[i].checked)
+		   {
+			  r10 = form.question_10[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_11.length; i++)
+		{
+		   if (form.question_11[i].checked)
+		   {
+			  r11 = form.question_11[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_12.length; i++)
+		{
+		   if (form.question_12[i].checked)
+		   {
+			  r12 = form.question_12[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_13.length; i++)
+		{
+		   if (form.question_13[i].checked)
+		   {
+			  r13 = form.question_13[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_14.length; i++)
+		{
+		   if (form.question_14[i].checked)
+		   {
+			  r14 = form.question_14[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_15.length; i++)
+		{
+		   if (form.question_15[i].checked)
+		   {
+			  r15 = form.question_15[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_16.length; i++)
+		{
+		   if (form.question_16[i].checked)
+		   {
+			  r16 = form.question_16[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_17.length; i++)
+		{
+		   if (form.question_17[i].checked)
+		   {
+			  r17 = form.question_17[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i< form.question_18.length; i++)
+		{
+		   if (form.question_18[i].checked)
+		   {
+			  r18 = form.question_18[i].value;
+			  break;
+		   }
+		}
+		for (var i=0; i<form.question_19.length; i++)
+		{
+		   if (form.question_19[i].checked)
+		   {
+			  r19 = form.question_19[i].value;
+			  break;
+		   }
+		}
+		r20=parseInt(r1)+ parseInt(r2)+ parseInt(r3)+ parseInt(r4)+parseInt(r5)+ parseInt(r6)+ parseInt(r7)+ parseInt(r8)+parseInt(r9)+ parseInt(r10)+ parseInt(r11)+ parseInt(r12)+parseInt(r13)+ parseInt(r14)+ parseInt(r15)+ parseInt(r16)+parseInt(r17)+ parseInt(r18)+ parseInt(r19);
+		myform.T20.value= r20;
+		alert(myform.T20.value);
+	    var addvalue= r20;
+		location.href="setvalue.php?addvalue="+addvalue ;
+		}
+		
 </script>
 </head>
 <body>
 		<div>
-        	<form name="myform" id= "myform" > 
+        	<form name="myform" id= "myform"> 
 			1. 如果你能夠完全自由地計劃白天的時間，你希望大約在什麼時間起床? <br>
 				<input type="radio" value="1" name="question_1"> 早上 11 點至正午 12 點 (11:00-12:00 h)</input><br>
 				<input type="radio" value="2" name="question_1"> 早上 9 點 45 分至 11 點 (09:45-11:00 h)</input><br>
@@ -280,6 +283,7 @@ alert(myform.T20.value);
 				<input type="radio" value="6" name="question_19">絕對“清晨”型 </input><br><p>	
 			<p><input type="button" value="相加" name="B1" onclick ="aa()"></p> 
 			<p>結果是：<input type="text" name="T20" size="18"></p> 
+			
 			</form>
 		</div>
 		

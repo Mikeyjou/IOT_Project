@@ -8,10 +8,10 @@ $userAcc = trim($_POST["Username"]);
 $userPwd = trim($_POST["Password"]);
 $Email = trim($_POST["Email"]);
 
-mysql_query("INSERT INTO iotuser (account, password, email, hash) VALUES(
+mysql_query("INSERT INTO iot_user (account, password, email, hash) VALUES(
 '". mysql_escape_string($userAcc) ."',
 '". mysql_escape_string($userPwd) ."',
 '". mysql_escape_string($Email) ."',
 '". mysql_escape_string($hash) ."') ") or die(mysql_error());
-
+header('Location: index.php');
 ?>

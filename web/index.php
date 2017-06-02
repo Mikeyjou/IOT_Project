@@ -1,5 +1,11 @@
+<?php session_start(); ?>
+<?php
+	if ($_SESSION) {
+		header("location:main.html");
+		exit;
+	}
+?>
 <!DOCTYPE HTML>
-
 <html>
 	<head>
 		<title>智慧型光感應儀</title>
@@ -20,7 +26,7 @@
 			</header>
 
 		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="check.php">
+			<form id="signup-form" method="post" action="loginCheck.php">
 			            <input type="text" class="text" name="account"/><br />
 						<input type="password" name="password"/>
 						<!--<div class="submit">-->

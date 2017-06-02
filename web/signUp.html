@@ -6,67 +6,74 @@
 		<meta http-equiv="content-type" content="text/html" charset="UTF-8" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
     <style>
-      #Username,#Password,#Password2,#Email{
-        width: 99%;
-        border-radius: 5px;
-        border: 1px solid darkgray;
-        height: 25px;
-        padding-left: 10px;
-        font-family: 微軟正黑體;
-        font-size:16px;
-        outline:none;
-      }
+        #Username,#Password,#Password2,#Email{
+            width: 99%;
+            border-radius: 5px;
+            border: 1px solid darkgray;
+            height: 25px;
+            padding-left: 10px;
+            font-family: 微軟正黑體;
+            font-size:16px;
+            outline:none;
+        }
     </style>
     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
     <script>
-			//各式正規表達法 帳號 密碼 信箱
-      var rule = [/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
-                  /^.*(?=.{6,})(?=.*[a-z]).*$/,
-                  /^.*(?=.{6,})(?=.*[a-z]).*$/,
-                  /^.([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}).*$/]
-      $(document).ready(function(){
-            $("#Username,#Password,#Password2,#Email").focus(function(){
-                $(this).css("border-color","#006cff")
-            })
-
-						//簡易判斷輸入是否符合規則
-            $("#Username,#Password,#Password2,#Email").blur(function(){
-              var index = $("input").index(this);
-              if(rule[index].test($(this).val())){
-                if($(this).attr('id') == "Password2"){
-                  if($("#Password2").val() == $("#Password").val()){
-                    $(this).css("border-color","green")
-                  }
-                  else {
+		//各式正規表達法 帳號 密碼 信箱
+		var rule = [/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
+				  /^.*(?=.{6,})(?=.*[a-z]).*$/,
+				  /^.*(?=.{6,})(?=.*[a-z]).*$/,
+				  /^.([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}).*$/]
+		$(document).ready(function(){
+			$("#Username,#Password,#Password2,#Email").focus(function(){
+				$(this).css("border-color","#006cff")
+			})
+		
+			//簡易判斷輸入是否符合規則
+			$("#Username,#Password,#Password2,#Email").blur(function()
+            {
+                var index = $("input").index(this);
+                if(rule[index].test($(this).val()))
+                {
+                    if($(this).attr('id') == "Password2")
+                    {
+                        if($("#Password2").val() == $("#Password").val())
+                        {
+                            $(this).css("border-color","green")
+                        }
+                        else 
+                        {
+                            $(this).css("border-color","red")
+                        }
+                    }
+                    else 
+                    {
+                        $(this).css("border-color","green")
+                    }
+                }
+                else 
+                {
                     $(this).css("border-color","red")
-                  }
                 }
-                else {
-                  $(this).css("border-color","green")
-                }
-              }
-              else {
-                $(this).css("border-color","red")
-              }
-            })
-        })
+			})
+		})
     </script>
 	</head>
 	<body>
-		<form  method = "post" action = "register.php">
+		<form  method = "post" action = "registerToDB.php">
 			<div id="wrap">
 				<div id="masthead"></div>
 				<div id="menu"></div>
 				<div class="main">
 					<div class="signUp-form">
-            <span id="test"></span>
-            <input type='text' id='Username' name='Username' placeholder="帳號"><span class='username_err'></span></input>
-            <input type='password' id='Password' name='Password' placeholder="密碼"><span class='pswd_err'></span></input>
-            <input type='password' id='Password2' name='Password2' placeholder="重新輸入密碼"><span class='pswd2_err'></span></input>
-            <input type='text' id='Email' name='Email' placeholder="電子郵件"><span class='email_err'></span></input>
-            <input type="submit" value="SIGN UP"/>
-            <input type ="button" onclick="javascript:location.href='index.html'" value="BACK"></input>
-          </div>
+                        <span id="test"></span>
+                        <input type='text' id='Username' name='Username' placeholder="帳號"><span class='username_err'></span></input>
+                        <input type='password' id='Password' name='Password' placeholder="密碼"><span class='pswd_err'></span></input>
+                        <input type='password' id='Password2' name='Password2' placeholder="重新輸入密碼"><span class='pswd2_err'></span></input>
+                        <input type='text' id='Email' name='Email' placeholder="電子郵件"><span class='email_err'></span></input>
+                        <input type="submit" value="SIGN UP"/>
+                        <input type ="button" onclick="javascript:location.href='index.php'" value="BACK"></input>
+                    </div>
 				</div>
 			</div>
 			<div id="footer"></div>
