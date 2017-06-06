@@ -84,9 +84,9 @@ def isNeedToStart(threat, now, offset):
         return False
 
 googleSpeech = googleSpeech()
-speechThread = threading.Thread(target=googleSpeech.speech2Text, args=())
-speechThread.daemon = True                            # Daemonize thread
-speechThread.start()                                  # Start the execution
+# speechThread = threading.Thread(target=googleSpeech.speech2Text, args=())
+# speechThread.daemon = True                            # Daemonize thread
+# speechThread.start()                                  # Start the execution
 
 
 speechConverter = textToSpeech()

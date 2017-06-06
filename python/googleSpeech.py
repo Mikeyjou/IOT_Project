@@ -4,6 +4,7 @@ import os
 # Imports the Google Cloud client library
 from google.cloud import speech
 from pydub import AudioSegment
+import pydub
 
 # save audio
 import pyaudio
@@ -14,17 +15,17 @@ class googleSpeech:
 
     def convertToFlac(self, filename, output):
         # K:\IOT_Project\python\output.wav
+        pydub.AudioSegment.ffmpeg = "ffmpeg-3.3.1/ffmpeg"
         song = AudioSegment.from_wav(filename)
         song.export(output, format = "flac")
 
     def saveAudio(self):
-        CHUNK = 1024
+        CHUNK = 512
         FORMAT = pyaudio.paInt16
         CHANNELS = 1
         RATE = 44100
         RECORD_SECONDS = 5
         WAVE_OUTPUT_FILENAME = "tmp.wav"
-
         p = pyaudio.PyAudio()
 
         stream = p.open(format=FORMAT,
@@ -54,7 +55,7 @@ class googleSpeech:
         wf.writeframes(b''.join(frames))
         wf.close()
 
-        convertToFlac(WAVE_OUTPUT_FILENAME, 'tmp.flac')
+        self.convertToFlac(WAVE_OUTPUT_FILENAME, 'tmp.flac')
 
     def speechAPI(self):
         # The name of the audio file to transcribe
@@ -78,12 +79,9 @@ class googleSpeech:
 
     def speechToText(self):
         self.saveAudio()
-        self.convertToFlac()
         self.speechAPI()
-        
+
 if __name__ == "__main__":
-    # Instantiates a client
-    speech_client = speech.Client()
-    saveAudio()
-    speechAPI()
+    googleSpeech = googleSpeech()
+
 
