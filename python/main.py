@@ -1,3 +1,4 @@
+#coding=utf-8  
 import pymysql.cursors
 import threading
 import sys
@@ -7,6 +8,9 @@ from textToSpeech import textToSpeech
 from LDR_Controller import LDR_Controller
 from motor_Controller import motor_Controller
 from googleSpeech import googleSpeech
+
+
+score = 0
 
 
 def initRaspberry():
@@ -39,7 +43,9 @@ def getLatestScore(conn):
         sql = "SELECT `value` FROM `iot_value` WHERE `owner`=%s"
         cursor.execute(sql, (userName,))
         result = cursor.fetchall()
-        print ("[Thread] 分數為: " + result[-1]['value'])
+        global score
+        score = result[-1]['value']
+        print ("分數為: " + str(score))
         return result[-1]['value']
 
 # 背景重複取得問卷分數
@@ -49,7 +55,7 @@ def repeatedlyExecute(conn):
     thread.start()                                  # Start the execution
 
 # 取得治療時間
-def countThreatTime(score):
+def countTreatTime(score):
     mins = [0,15,30,45]
     if score < 23 or score > 78:
         return None
@@ -78,14 +84,19 @@ def isNeedToStart(threat, now, offset):
         return False
 
 googleSpeech = googleSpeech()
+speechThread = threading.Thread(target=googleSpeech.speech2Text, args=())
+speechThread.daemon = True                            # Daemonize thread
+speechThread.start()                                  # Start the execution
+
+
 speechConverter = textToSpeech()
 motor, ldr = initRaspberry()
 connection = initDB()
 score = getLatestScore(connection)
-threatTimeStruct = countThreatTime(75)
+threatTimeStruct = countTreatTime(score)
 isFinish = False
-threatTimeStruct['hour'] = str(9)
-threatTimeStruct['min'] = str(5)
+threatTimeStruct['hour'] = str(7)
+threatTimeStruct['min'] = str(0)
 threatTimeStruct['halfDay'] = 'PM'
 
 if threatTimeStruct != None:
@@ -99,7 +110,8 @@ if nowStruct != None:
         print('現在時間為: 下午' + nowStruct['hour'] + '點' + nowStruct['min'] + '分')
 
 
-
+googleSpeech.speechToText()
+speechConverter.play("早安")
 
 # 5分鐘前開啟百葉窗
 while isNeedToStart(threatTimeStruct, getNow(), 1) and isFinish == False:

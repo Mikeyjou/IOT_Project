@@ -9,12 +9,15 @@ from pydub import AudioSegment
 import pyaudio
 import wave
 class googleSpeech:
-    def convertToFlac(filename, output):
+    def __init__(self):
+        self.speech_client = speech.Client()
+
+    def convertToFlac(self, filename, output):
         # K:\IOT_Project\python\output.wav
         song = AudioSegment.from_wav(filename)
         song.export(output, format = "flac")
 
-    def saveAudio():
+    def saveAudio(self):
         CHUNK = 1024
         FORMAT = pyaudio.paInt16
         CHANNELS = 1
@@ -53,14 +56,14 @@ class googleSpeech:
 
         convertToFlac(WAVE_OUTPUT_FILENAME, 'tmp.flac')
 
-    def text2Speech(client):
+    def speechAPI(self):
         # The name of the audio file to transcribe
         file_name = 'tmp.flac'
 
         # Loads the audio into memory
         with io.open(file_name, 'rb') as audio_file:
             content = audio_file.read()
-            sample = client.sample(
+            sample = self.speech_client.sample(
                 content,
                 source_uri=None,
                 encoding=speech.Encoding.FLAC,
@@ -73,10 +76,14 @@ class googleSpeech:
             print('Transcript: {}'.format(alternative.transcript))
             print('confidence: ' + str(alternative.confidence))
 
-
+    def speechToText(self):
+        self.saveAudio()
+        self.convertToFlac()
+        self.speechAPI()
+        
 if __name__ == "__main__":
     # Instantiates a client
     speech_client = speech.Client()
     saveAudio()
-    text2Speech(speech_client)
+    speechAPI()
 
