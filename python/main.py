@@ -6,6 +6,8 @@ import datetime
 from textToSpeech import textToSpeech
 from LDR_Controller import LDR_Controller
 from motor_Controller import motor_Controller
+from googleSpeech import googleSpeech
+
 
 def initRaspberry():
     return (motor_Controller(), LDR_Controller())
@@ -37,14 +39,14 @@ def getLatestScore(conn):
         sql = "SELECT `value` FROM `iot_value` WHERE `owner`=%s"
         cursor.execute(sql, (userName,))
         result = cursor.fetchall()
+        print ("[Thread] 分數為: " + result[-1]['value'])
         return result[-1]['value']
 
 # 背景重複取得問卷分數
 def repeatedlyExecute(conn):
-
-    t = threading.Timer(10.0, repeatedlyExecute, args=(conn,))
-    t.start()
-    print ("分數為: " + getLatestScore(conn))
+    thread = threading.Thread(target=getLatestScore, args=(conn,))
+    thread.daemon = True                            # Daemonize thread
+    thread.start()                                  # Start the execution
 
 # 取得治療時間
 def countThreatTime(score):
@@ -75,12 +77,13 @@ def isNeedToStart(threat, now, offset):
     else:
         return False
 
+googleSpeech = googleSpeech()
 speechConverter = textToSpeech()
 motor, ldr = initRaspberry()
 connection = initDB()
 score = getLatestScore(connection)
 threatTimeStruct = countThreatTime(75)
-
+isFinish = False
 threatTimeStruct['hour'] = str(9)
 threatTimeStruct['min'] = str(5)
 threatTimeStruct['halfDay'] = 'PM'
@@ -99,24 +102,22 @@ if nowStruct != None:
 
 
 # 5分鐘前開啟百葉窗
-while isNeedToStart(threatTimeStruct, getNow(), 1):
+while isNeedToStart(threatTimeStruct, getNow(), 1) and isFinish == False:
     speechConverter.play("治療開始前5分鐘，請開始準備！")
     print("治療開始前5分鐘，請開始準備！")
-    motor.start(30)
-    while isNeedToStart(threatTimeStruct, getNow(), 0):
-        lux = str(ldr.getLux())
+    motor.start(10)
+    while isNeedToStart(threatTimeStruct, getNow(), 0) and isFinish == False:
+        lux = int(ldr.getLux())
         print("時間到了...")
-        print("目前光照強度為:" + lux)
-        speechConverter.play("時間到，目前光照強度為" + lux)
+        print("目前光照強度為:" + str(lux))
+        speechConverter.play("時間到，目前光照強度為" + str(lux))
         
         if lux < 10000:
             print("戶外光照強度不足，請於室內接受治療！")
             print("開始啟動光照儀器...")
             speechConverter.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
+            isFinish = True
         else:
             print("戶外光照強度充足，請外出曬太陽！")
             speechConverter.play("戶外光照強度充足，請外出曬太陽")
-
-# t = threading.Timer(10.0, repeatedlyExecute, args=(connection,))
-# t.start() 
-
+            isFinish = True
