@@ -5,6 +5,7 @@ import sys
 import time
 import datetime
 import RPi.GPIO as GPIO
+import time
 from textToSpeech import textToSpeech
 from LDR_Controller import LDR_Controller
 from motor_Controller import motor_Controller
@@ -114,9 +115,9 @@ isFinish = False
 # 判斷是否準備好接受治療
 isReady = False
 
-threatTimeStruct['hour'] = str(7)
+threatTimeStruct['hour'] = str(2)
 threatTimeStruct['min'] = str(0)
-threatTimeStruct['halfDay'] = 'PM'
+threatTimeStruct['halfDay'] = 'AM'
 
 if threatTimeStruct != None:
     print('強光治療時間為: 早上' + threatTimeStruct['hour'] + '點' + threatTimeStruct['min'] + '分')
@@ -129,7 +130,7 @@ if nowStruct != None:
         print('現在時間為: 下午' + nowStruct['hour'] + '點' + nowStruct['min'] + '分')
 
 
-while isNeedToStart(threatTimeStruct, getNow(), 10)
+while isNeedToStart(threatTimeStruct, getNow(), 10):
     speechConverter.play("早安")
     alternatives = googleSpeech.speechToText()
     
@@ -153,7 +154,7 @@ while isNeedToStart(threatTimeStruct, getNow(), 5) and isFinish == False and isR
         print("目前光照強度為:" + str(lux))
         speechConverter.play("時間到，目前光照強度為" + str(lux))
         
-        if lux < 10000:
+        if lux > 10000:
             print("戶外光照強度不足，請於室內接受治療！")
             print("開始啟動光照儀器...")
             speechConverter.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
@@ -165,6 +166,8 @@ while isNeedToStart(threatTimeStruct, getNow(), 5) and isFinish == False and isR
             isFinish = True
 
 
+time.sleep(5) 
 while isNeedToStart(threatTimeStruct, getNow(), -30):
     closeLight()
     speechConverter.play("光照治療結束，請再用網站或APP確認資料")
+    break

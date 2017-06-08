@@ -39,4 +39,4 @@ class motor_Controller:
 
 if __name__ == "__main__":
     motor = motor_Controller()
-    motor.start()
+    motor.start(5)

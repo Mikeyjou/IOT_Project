@@ -90,7 +90,7 @@ class googleSpeech:
     # 判斷是否包含關鍵字
     def isContain(self, keyword, speech):
         for word in speech:
-            if keyword in word:
+            if keyword in word.transcript:
                 return True
         return False
 
