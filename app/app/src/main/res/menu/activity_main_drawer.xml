@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_statics"
+            android:icon="@drawable/icons8_statics"
+            android:title="統計" />
+        <item
+            android:id="@+id/nav_questionnaire"
+            android:icon="@drawable/icons8_test_passed_64"
+            android:title="問卷" />
+        <item
+            android:id="@+id/nav_questionnaireRecord"
+            android:icon="@drawable/icons8_edit_property_64"
+            android:title="問卷記錄" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/icons8_logout_64"
+            android:title="登出" />
+    </group>
+
+    <item android:title="Communicate"
+        android:visible="false">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

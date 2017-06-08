@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:drawable/editbox_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_showArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="活動der名字"
+            android:textColor="#162834"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_score_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/15"
+            android:textColor="#F75252"
+            android:textSize="18sp"
+            android:layout_alignBaseline="@+id/textView8"
+            android:layout_alignBottom="@+id/textView8"
+            android:layout_toStartOf="@+id/textView8" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分"
+            android:textColor="#767171"
+            android:textSize="18sp"
+            android:id="@+id/textView8"
+            android:layout_alignBaseline="@+id/tv_authority"
+            android:layout_alignBottom="@+id/tv_authority"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_hideArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_timeNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_score"
+            android:text="問卷分數："
+            android:textColor="#162834"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_timeNote"
+            android:text="2016.02.10~2016.02.11"
+            android:textColor="#F09BED"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_placeNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_timeNote"
+            android:layout_marginTop="10dp"
+            android:text="填寫時間："
+            android:textColor="#162834"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            android:textColor="#F09BED"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/tv_placeNote"
+            android:layout_toEndOf="@+id/tv_placeNote" />
+
+
+        <TextView
+            android:id="@+id/tv_numNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_placeNote"
+            android:layout_marginTop="10dp"
+            android:text="類型："
+            android:textColor="#162834"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="yoyoyo"
+            android:textColor="#F09BED"
+            android:textSize="18sp"
+            android:layout_alignTop="@+id/tv_numNote"
+            android:layout_toEndOf="@+id/tv_numNote" />
+
+
+    </RelativeLayout>
+</LinearLayout>
