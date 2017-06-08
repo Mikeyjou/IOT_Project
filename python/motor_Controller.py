@@ -11,7 +11,7 @@ class motor_Controller:
         self.pwm_motor = GPIO.PWM(self.MotorPin, 50)
         self.isRunning = False
 
-
+    # 開始啟動馬達
     def start(self, runningTime):
         self.pwm_motor.start(7.5)
         t0 = time.time()
@@ -20,23 +20,23 @@ class motor_Controller:
                 self.pwm_motor.ChangeDutyCycle(4)
                 time.sleep(0.01)
                 # print a
-    #       pwm_motor.stop()
-            for b in range(100):
-                self.pwm_motor.ChangeDutyCycle(7.5)
-                time.sleep(0.01)
-                # print b
-    #       pwm_motor.stop()
-            for c in range(100):
-                self.pwm_motor.ChangeDutyCycle(11)
-                time.sleep(0.01)
-                # print c
-    #       pwm_motor.stop()
-            for d in range(100):
-                self.pwm_motor.ChangeDutyCycle(7.5)
-                time.sleep(0.01)
-                # print d
+    # #       pwm_motor.stop()
+    #         for b in range(100):
+    #             self.pwm_motor.ChangeDutyCycle(7.5)
+    #             time.sleep(0.01)
+    #             # print b
+    # #       pwm_motor.stop()
+    #         for c in range(100):
+    #             self.pwm_motor.ChangeDutyCycle(11)
+    #             time.sleep(0.01)
+    #             # print c
+    # #       pwm_motor.stop()
+    #         for d in range(100):
+    #             self.pwm_motor.ChangeDutyCycle(7.5)
+    #             time.sleep(0.01)
+    #             # print d
         self.pwm_motor.stop()
 
 if __name__ == "__main__":
-    motor = motorController()
+    motor = motor_Controller()
     motor.start()

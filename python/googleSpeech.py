@@ -12,13 +12,16 @@ import wave
 class googleSpeech:
     def __init__(self):
         self.speech_client = speech.Client()
+        self.alternatives = None
 
+    # 轉成FLAC格式
     def convertToFlac(self, filename, output):
         # K:\IOT_Project\python\output.wav
         pydub.AudioSegment.ffmpeg = "ffmpeg-3.3.1/ffmpeg"
         song = AudioSegment.from_wav(filename)
         song.export(output, format = "flac")
 
+    # 儲存音源擋
     def saveAudio(self):
         CHUNK = 512
         FORMAT = pyaudio.paInt16
@@ -57,6 +60,7 @@ class googleSpeech:
 
         self.convertToFlac(WAVE_OUTPUT_FILENAME, 'tmp.flac')
 
+    # 連接google speech API
     def speechAPI(self):
         # The name of the audio file to transcribe
         file_name = 'tmp.flac'
@@ -69,17 +73,32 @@ class googleSpeech:
                 source_uri=None,
                 encoding=speech.Encoding.FLAC,
                 sample_rate_hertz=44100)
+        try:
+            # Detects speech in the audio file
+            self.alternatives = sample.recognize('zh-tw')
 
-        # Detects speech in the audio file
-        alternatives = sample.recognize('zh-tw')
+            # for alternative in self.alternatives:
+            #     print('Transcript: {}'.format(alternative.transcript))
+            #     print('confidence: ' + str(alternative.confidence))
+        except ValueError:
+            print("No results returned from the Speech API.")
 
-        for alternative in alternatives:
-            print('Transcript: {}'.format(alternative.transcript))
-            print('confidence: ' + str(alternative.confidence))
+    # 取得google speech結果
+    def getAlternatives(self):
+        return self.alternatives
 
+    # 判斷是否包含關鍵字
+    def isContain(self, keyword, speech):
+        for word in speech:
+            if keyword in word:
+                return True
+        return False
+
+    # 語音轉文字
     def speechToText(self):
         self.saveAudio()
         self.speechAPI()
+        return self.getAlternatives()
 
 if __name__ == "__main__":
     googleSpeech = googleSpeech()

@@ -4,14 +4,13 @@ import threading
 import sys
 import time
 import datetime
+import RPi.GPIO as GPIO
 from textToSpeech import textToSpeech
 from LDR_Controller import LDR_Controller
 from motor_Controller import motor_Controller
 from googleSpeech import googleSpeech
 
-
 score = 0
-
 
 def initRaspberry():
     return (motor_Controller(), LDR_Controller())
@@ -31,9 +30,23 @@ def initDB():
     connection.commit()
     return connection
 
+# 關閉資料庫連接
 def closeDB(conn):
     conn.close()
 
+# 開啟燈泡
+def startLight():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.output(18,GPIO.LOW)
+
+# 關閉燈泡
+def closeLight():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(18, GPIO.OUT)
+    GPIO.output(18,GPIO.HIGH)
+
+# 取得最新問卷分數
 def getLatestScore(conn):
 
     userName = '123'
@@ -73,6 +86,7 @@ def getNow():
     # print(datetime.datetime.now().strftime("%I:%M%p"))
     return timeArr
 
+# 判斷是否需要開始治療
 def isNeedToStart(threat, now, offset):
     if threat['halfDay'] == now['halfDay']:
         # offset分鐘前就預先開始啟動
@@ -94,7 +108,12 @@ motor, ldr = initRaspberry()
 connection = initDB()
 score = getLatestScore(connection)
 threatTimeStruct = countTreatTime(score)
+
+# 判斷是否完成判斷光度
 isFinish = False
+# 判斷是否準備好接受治療
+isReady = False
+
 threatTimeStruct['hour'] = str(7)
 threatTimeStruct['min'] = str(0)
 threatTimeStruct['halfDay'] = 'PM'
@@ -110,11 +129,21 @@ if nowStruct != None:
         print('現在時間為: 下午' + nowStruct['hour'] + '點' + nowStruct['min'] + '分')
 
 
-googleSpeech.speechToText()
-speechConverter.play("早安")
+while isNeedToStart(threatTimeStruct, getNow(), 10)
+    speechConverter.play("早安")
+    alternatives = googleSpeech.speechToText()
+    
+    if googleSpeech.isContain("早", alternatives):
+        speechConverter.play("請問10分鐘後可以接受治療嗎?")
+        alternatives = googleSpeech.speechToText()
+        if googleSpeech.isContain("不可以", alternatives):
+            speechConverter.play("療程幫您延後")
+        elif googleSpeech.isContain("可以", alternatives):
+            isReady = True
+            break
 
 # 5分鐘前開啟百葉窗
-while isNeedToStart(threatTimeStruct, getNow(), 1) and isFinish == False:
+while isNeedToStart(threatTimeStruct, getNow(), 5) and isFinish == False and isReady == True:
     speechConverter.play("治療開始前5分鐘，請開始準備！")
     print("治療開始前5分鐘，請開始準備！")
     motor.start(10)
@@ -128,8 +157,14 @@ while isNeedToStart(threatTimeStruct, getNow(), 1) and isFinish == False:
             print("戶外光照強度不足，請於室內接受治療！")
             print("開始啟動光照儀器...")
             speechConverter.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
+            startLight()
             isFinish = True
         else:
             print("戶外光照強度充足，請外出曬太陽！")
             speechConverter.play("戶外光照強度充足，請外出曬太陽")
             isFinish = True
+
+
+while isNeedToStart(threatTimeStruct, getNow(), -30):
+    closeLight()
+    speechConverter.play("光照治療結束，請再用網站或APP確認資料")

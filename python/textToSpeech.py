@@ -6,6 +6,7 @@ class textToSpeech():
     def __init__(self):
         self.filename = 'tmp/temp.mp3'
         
+    # 開始google小姐
     def play(self,string):
         tts = gTTS(text=string, lang='zh-tw')
         tts.save(self.filename)

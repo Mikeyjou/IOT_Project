@@ -35,6 +35,7 @@ class LDR_Controller:
         volts = round(volts,deci)
         return volts
 
+    # 換算燭光
     def getLux(self):
         ldrRawData = self.ReadADC(self.light_ch)
         resistorVoltage = self.ReadVolts(ldrRawData, 2)

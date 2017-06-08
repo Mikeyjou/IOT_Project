@@ -1,5 +1,9 @@
 import pyaudio
 import wave
+import logging
+
+logging.getLogger("pyaudio").setLevel(logging.WARNING)
+
 CHUNK = 512
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
