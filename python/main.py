@@ -99,15 +99,17 @@ def isNeedToStart(threat, now, offset):
         return False
 
 googleSpeech = googleSpeech()
-# speechThread = threading.Thread(target=googleSpeech.speech2Text, args=())
-# speechThread.daemon = True                            # Daemonize thread
-# speechThread.start()                                  # Start the execution
 turing = turing123()
 speechConverter = textToSpeech()
 motor, ldr = initRaspberry()
 connection = initDB()
 score = getLatestScore(connection)
 threatTimeStruct = countTreatTime(score)
+
+turingThread = threading.Thread(target=turing.result, args=())
+turingThread.daemon = True                            # Daemonize thread
+turingThread.start()                                  # Start the execution
+
 
 # 判斷是否完成判斷光度
 isFinish = False
