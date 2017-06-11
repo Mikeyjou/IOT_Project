@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from googleSpeech import googleSpeech
 from turing123 import turing123
 from textToSpeech import textToSpeech

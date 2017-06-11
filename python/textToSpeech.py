@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from gtts import gTTS
 from time import sleep
 import os
