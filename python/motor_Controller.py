@@ -3,12 +3,12 @@ import RPi.GPIO as GPIO
 
 class motor_Controller:
 
-    def __init__(self):
+    def __init__(self, speed):
         GPIO.setmode(GPIO.BOARD)
         self.MotorPin = 12
         GPIO.setup(self.MotorPin,GPIO.OUT)
 
-        self.pwm_motor = GPIO.PWM(self.MotorPin, 50)
+        self.pwm_motor = GPIO.PWM(self.MotorPin, speed)
         self.isRunning = False
 
     # 開始啟動馬達
@@ -38,5 +38,5 @@ class motor_Controller:
         self.pwm_motor.stop()
 
 if __name__ == "__main__":
-    motor = motor_Controller()
+    motor = motor_Controller(30)
     motor.start(5)

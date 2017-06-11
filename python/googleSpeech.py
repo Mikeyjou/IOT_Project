@@ -102,5 +102,6 @@ class googleSpeech:
 
 if __name__ == "__main__":
     googleSpeech = googleSpeech()
+    googleSpeech.speechToText()
 
 

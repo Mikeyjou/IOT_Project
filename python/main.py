@@ -10,11 +10,11 @@ from textToSpeech import textToSpeech
 from LDR_Controller import LDR_Controller
 from motor_Controller import motor_Controller
 from googleSpeech import googleSpeech
-
+from turing123 import turing123
 score = 0
 
 def initRaspberry():
-    return (motor_Controller(), LDR_Controller())
+    return (motor_Controller(30), LDR_Controller())
 
 def initDB():
     # Connect to the database
@@ -102,8 +102,7 @@ googleSpeech = googleSpeech()
 # speechThread = threading.Thread(target=googleSpeech.speech2Text, args=())
 # speechThread.daemon = True                            # Daemonize thread
 # speechThread.start()                                  # Start the execution
-
-
+turing = turing123()
 speechConverter = textToSpeech()
 motor, ldr = initRaspberry()
 connection = initDB()
@@ -117,7 +116,7 @@ isReady = False
 
 threatTimeStruct['hour'] = str(2)
 threatTimeStruct['min'] = str(0)
-threatTimeStruct['halfDay'] = 'AM'
+threatTimeStruct['halfDay'] = 'PM'
 
 if threatTimeStruct != None:
     print('強光治療時間為: 早上' + threatTimeStruct['hour'] + '點' + threatTimeStruct['min'] + '分')
@@ -145,16 +144,16 @@ while isNeedToStart(threatTimeStruct, getNow(), 10):
 
 # 5分鐘前開啟百葉窗
 while isNeedToStart(threatTimeStruct, getNow(), 5) and isFinish == False and isReady == True:
-    speechConverter.play("治療開始前5分鐘，請開始準備！")
-    print("治療開始前5分鐘，請開始準備！")
-    motor.start(10)
+    speechConverter.play("治療開始前5分鐘，請開始準備，正在開啟百葉窗！")
+    print("治療開始前5分鐘，請開始準備，正在開啟百葉窗！")
+    motor.start(8)
     while isNeedToStart(threatTimeStruct, getNow(), 0) and isFinish == False:
         lux = int(ldr.getLux())
         print("時間到了...")
         print("目前光照強度為:" + str(lux))
         speechConverter.play("時間到，目前光照強度為" + str(lux))
         
-        if lux > 10000:
+        if lux < 10000:
             print("戶外光照強度不足，請於室內接受治療！")
             print("開始啟動光照儀器...")
             speechConverter.play("戶外光照強度不足，請於室內接受治療30分鐘，開始啟動光照儀器")
